@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import apiClient from "../services/apiClient";
-import { CanceledError } from "axios";
+import useData from "./useData";
 
 export interface Genre {
   id: number;
@@ -8,35 +6,39 @@ export interface Genre {
   image_background: string;
 }
 
-interface FetchGenresResponse {
-  count: number;
-  results: Genre[];
-}
+const useGenre = () => useData<Genre>('/genres');
 
-const useGenre = () => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+export default useGenre
 
-  useEffect(() => {
-    const controller = new AbortController();
+// interface FetchGenresResponse {
+//   count: number;
+//   results: Genre[];
+// }
 
-    setLoading(true);
-    apiClient
-      .get<FetchGenresResponse>("/genres", { signal: controller.signal })
-      .then((res) => {
-        setGenres(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
+// const useGenre = () => {
+//   const [genres, setGenres] = useState<Genre[]>([]);
+//   const [error, setError] = useState("");
+//   const [isLoading, setLoading] = useState(false);
 
-    return () => controller.abort();
-  }, []);
+//   useEffect(() => {
+//     const controller = new AbortController();
 
-  return { genres, error, isLoading };
-};
-export default useGenre;
+//     setLoading(true);
+//     apiClient
+//       .get<FetchGenresResponse>("/genres", { signal: controller.signal })
+//       .then((res) => {
+//         setGenres(res.data.results);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return;
+//         setError(err.message);
+//         setLoading(false);
+//       });
+
+//     return () => controller.abort();
+//   }, []);
+
+//   return { genres, error, isLoading };
+// };
+// export default useGenre;
