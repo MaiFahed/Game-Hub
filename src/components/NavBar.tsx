@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <HStack padding="10px">
-      <Link to={"/"}>
-        <Image src={logo} boxSize="60px" objectFit='cover' />
+      {/* flexShrink 0 keeps the logo visible on phones (it used to be squeezed to nothing) */}
+      <Link to={"/"} style={{ flexShrink: 0 }}>
+        <Image src={logo} boxSize={{ base: "44px", md: "60px" }} objectFit='cover' />
       </Link>
       <SearchInput />
       <ColorModeSwitch />

@@ -16,7 +16,7 @@ const GameHeading = () => {
     genre?.name || ""
   } Games`;
   return (
-    <Heading marginY={5} fontSize="5xl" as="h1">
+    <Heading marginY={5} fontSize={{ base: "3xl", md: "5xl" }} as="h1">
       {headingName}
     </Heading>
   );

@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import GameGrid from "../components/GameGrid";
 import GenreList from "../components/GenreList";
+import GenreSelector from "../components/GenreSelector";
 import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import GameHeading from "../components/GameHeading";
@@ -32,7 +33,11 @@ const HomePage = () => {
       <GridItem area="main">
         <Box paddingLeft={2}>
           <GameHeading />
-          <HStack spacing={5} marginBottom={5}>
+          <HStack spacing={{ base: 2, md: 5 }} marginBottom={5} flexWrap="wrap">
+            {/* phones and tablets have no side list, so genres become a drop-down */}
+            <Box display={{ base: "block", lg: "none" }}>
+              <GenreSelector />
+            </Box>
             <PlatformSelector />
             <SortSelector />
           </HStack>
